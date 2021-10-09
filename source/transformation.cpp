@@ -13,7 +13,7 @@ void Homogeneous_forward_transform(vector<vector<double>> before_matrix, vector<
 		for (int i = 0; i < SIZE; i++)
 			tmp.push_back(trans_matrix.at(cnt).at(i));
 		
-		//Çà·Ä °ö¼À °è»ê °á°úÀÇ row´Â °öÇØÁö´Â Çà·Ä(¿À¸¥ÂÊ Çà·Ä)ÀÇ rowµéÀÇ ¼±ÇüÁ¶ÇÕÀÌ¹Ç·Î °öÇÏ´Â Çà·Ä(¿ŞÂÊ Çà·Ä)ÀÇ ¿ø¼Ò¸¦ ¿À¸¥ÂÊ Çà·ÄÀÇ row¿¡ °öÇØ¼­ rowºÎÅÍ ¼ø¼­´ë·Î °è»êÇÑ´Ù.
+		//í–‰ë ¬ ê³±ì…ˆ ê³„ì‚° ê²°ê³¼ì˜ rowëŠ” ê³±í•´ì§€ëŠ” í–‰ë ¬(ì˜¤ë¥¸ìª½ í–‰ë ¬)ì˜ rowë“¤ì˜ ì„ í˜•ì¡°í•©ì´ë¯€ë¡œ ê³±í•˜ëŠ” í–‰ë ¬(ì™¼ìª½ í–‰ë ¬)ì˜ ì›ì†Œë¥¼ ì˜¤ë¥¸ìª½ í–‰ë ¬ì˜ rowì— ê³±í•´ì„œ rowë¶€í„° ìˆœì„œëŒ€ë¡œ ê³„ì‚°í•œë‹¤.
 		for (int i = 0; i < SIZE; i++)
 		{
 			double element = 0;
@@ -23,7 +23,7 @@ void Homogeneous_forward_transform(vector<vector<double>> before_matrix, vector<
 				row.at(j) += element;
 			}
 		}
-		//°è»ê °á°ú¸¦ row¿¡ ÀúÀå
+		//ê³„ì‚° ê²°ê³¼ë¥¼ rowì— ì €ì¥
 		after_matrix.push_back(row);
 		row.clear();
 		tmp.clear();
@@ -35,7 +35,7 @@ void Homogeneous_inverse_matrix(std::vector<std::vector<double>> before_matrix, 
 {
 	vector<double> position_column(4, 0);
 	double position = 0;
-	//4x4 Çà·Ä¿¡¼­ position´ÜÀº transposeÇÏÁö ¾Ê°í position x noa º¤ÅÍ °öÀ¸·Î Ç¥Çö µÇ¹Ç·Î µû·Î °è»ê ÇØÁØ´Ù.
+	//4x4 í–‰ë ¬ì—ì„œ positionë‹¨ì€ transposeí•˜ì§€ ì•Šê³  position x noa ë²¡í„° ê³±ìœ¼ë¡œ í‘œí˜„ ë˜ë¯€ë¡œ ë”°ë¡œ ê³„ì‚° í•´ì¤€ë‹¤.
 	for (int i = 0; i < SIZE - 1; i++)
 	{
 		for (int j = 0; j < SIZE - 1; j++)
@@ -43,7 +43,7 @@ void Homogeneous_inverse_matrix(std::vector<std::vector<double>> before_matrix, 
 		position_column.at(i) += position;
 		position = 0;
 	}
-	//rotation ¿ø¼ÒµéÀº ´Ü¼ø transpose½ÃÄÑÁØ´Ù.
+	//rotation ì›ì†Œë“¤ì€ ë‹¨ìˆœ transposeì‹œì¼œì¤€ë‹¤.
 	for (int i = 0; i < SIZE - 1; i++)
 	{
 		vector<double> row;
@@ -52,11 +52,11 @@ void Homogeneous_inverse_matrix(std::vector<std::vector<double>> before_matrix, 
 			position = before_matrix.at(j).at(i);
 			row.push_back(position);
 		}
-		//À§¿¡¼­ row¿¡ rotation¿ø¼Ò¸¸ ³Ö¾î ÁÖ¾úÀ¸¹Ç·Î position¿ø¼Ò¸¦ ¸¶Áö¸·¿¡ ³Ö¾î ÁØ´Ù.
+		//ìœ„ì—ì„œ rowì— rotationì›ì†Œë§Œ ë„£ì–´ ì£¼ì—ˆìœ¼ë¯€ë¡œ positionì›ì†Œë¥¼ ë§ˆì§€ë§‰ì— ë„£ì–´ ì¤€ë‹¤.
 		row.push_back(position_column.at(i));
 		inverse_matrix.push_back(row);
 		row.clear();
 	}
-	//·Îº¿ ÁÂÇ¥°èÀÇ homogeneous matrix¿¡¼­ ¸¶Áö¸· row ´Â 0001 À¸·Î °íÁ¤µÇ¹Ç·Î ¸¶Áö¸·¿¡ µû·Î Ãß°¡ÇØ ÁØ´Ù.
+	//ë¡œë´‡ ì¢Œí‘œê³„ì˜ homogeneous matrixì—ì„œ ë§ˆì§€ë§‰ row ëŠ” 0001 ìœ¼ë¡œ ê³ ì •ë˜ë¯€ë¡œ ë§ˆì§€ë§‰ì— ë”°ë¡œ ì¶”ê°€í•´ ì¤€ë‹¤.
 	inverse_matrix.push_back(before_matrix.at(SIZE - 1));
 }
