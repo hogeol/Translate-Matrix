@@ -1,31 +1,35 @@
 #include <iostream>
-#include <vector>
 #include "transformation.hpp"
 #include "gui.hpp"
 using namespace std;
 
 int main(int argc, char** argv)
 {
-	vector<vector<double>> uTh; 
+	vector<vector<double>> uTh;
 	vector<vector<double>> uTr;
 	vector<vector<double>> rTu;
 	vector<vector<double>> rTh;
-	
-	//ÁÖ¾îÁø Çà·Ä
+	vector<vector<double>> rpy_result;
+	vector<double> joint_result;
+	//ì£¼ì–´ì§„ í–‰ë ¬
 	double u_hand_element_array[SIZE][SIZE] = { {1,0,0,0},{0,1,0,6},{0,0,1,2},{0,0,0,1} };
 	double u_robot_element_array[SIZE][SIZE] = { {0,0,-1,8},{0,1,0,2},{1,0,0,-1},{0,0,0,1} };
-	
-	//2Â÷¿ø ¹è¿­ -> º¤ÅÍ º¯È¯
+	double pos[3] = { 1.5,1.0,0.5 };
+	double rpy[3] = { 90,45,30 };
+	double normal_an[JOINT] = { 0,1,1,0.1,0,0 };
+	/*
+	//Exercise 1
+	//2ì°¨ì› ë°°ì—´ -> ë²¡í„° ë³€í™˜
 	Input(u_hand_element_array, uTh);
 	Input(u_robot_element_array, uTr);
-	
-	//¿ªÇà·Ä º¯È¯
+
+	//ì—­í–‰ë ¬ ë³€í™˜
 	Homogeneous_inverse_matrix(uTr, rTu);
-	
-	//Çà·Ä °ö¼À°è»ê
+
+	//í–‰ë ¬ ê³±ì…ˆê³„ì‚°
 	Homogeneous_forward_transform(uTh, rTu, rTh);
 
-	//Ãâ·Â
+	//ì¶œë ¥
 	cout << "universe base Hand matrix\n\n";
 	Display(uTh);
 	cout << "\nuniverse base Robot matrix\n\n";
@@ -34,6 +38,28 @@ int main(int argc, char** argv)
 	Display(rTu);
 	cout << "\nRobot base Hand matrix\n\n";
 	Display(rTh);
+	*/
+
+	/*
+	//Exercise 2
+	cout << "roll : " << rpy[0] << ", pitch : " << rpy[1] << ", yaw : " << rpy[2] << endl;
+	printf("\nposition : %.2f, %.2f, %.2f \n", pos[0], pos[1], pos[2]);
 	
+	//roll, pitch, yaw ë³€í™˜
+	Homogeneous_rpy_matrix(pos, rpy, rpy_result);
+
+	//rpy ë³€í™˜ í›„ matrix ì¶œë ¥
+	cout << "\nAfter roll pitch yaw transform:\n";
+	Display(rpy_result);
+
+	//joint angle ê³„ì‚°
+	joint_result = Homogeneous_inverse_kinematic(rpy_result, normal_an, JOINT);
+
+	//joint angle ì¶œë ¥
+	for (int i = 0; i < JOINT; i++)
+	{
+		cout << "\njoint angle(theta) " << i + 1 << " : " << joint_result.at(i) << endl;
+	}
+	*/
 	return 0;
 }
